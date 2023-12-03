@@ -24,25 +24,15 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     private String confirmPassword;
     private boolean enabled = true;
-
-    @Column(nullable = false)
     private String hobbies;
-    @Column(nullable = false)
     private Date dob;
-    @Column(nullable = false)
     private String education;
-    @Column(nullable = false)
     private String relationship;
-    @Column(nullable = false)
     private String city;
-    @Column(nullable = false)
     private String country;
-    @Column(nullable = false)
     private String address;
-    @Column(nullable = false)
     private String phoneNumber;
 
     @ManyToMany(fetch = FetchType.EAGER)

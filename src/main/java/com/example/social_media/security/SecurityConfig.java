@@ -74,22 +74,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return  http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/login", "/register", "/hello").permitAll()
-                .requestMatchers("/users/**").
-                                hasAnyAuthority("ROLE_USER")
-                .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/categories",
-                        "/typeOfQuestions",
-                        "/questions",
-                        "/answers",
-                        "/quizzes",
-                        "/hello").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/users")
-                .hasAnyAuthority("ROLE_USER")
-                        .anyRequest().authenticated()
-                )
+        return http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(requests -> requests.requestMatchers("/login", "/register").permitAll())
+                .authorizeHttpRequests(requests -> requests.requestMatchers("/posts/**").authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults())
                 .build();

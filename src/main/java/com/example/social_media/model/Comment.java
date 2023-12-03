@@ -15,11 +15,11 @@ public class Comment {
     private Date createAt;
 
     @ManyToOne
-    @JoinColumn(name = "users",nullable = false)
+    @JoinColumn(name = "userId",nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "posts" , nullable = false)
+    @JoinColumn(name = "postId" , nullable = false)
     private Post post;
 
     public Comment() {

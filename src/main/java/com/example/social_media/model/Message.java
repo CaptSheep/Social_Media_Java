@@ -13,7 +13,7 @@ public class Message {
     private Date createAt;
     private String message;
     @ManyToOne
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
     public Message() {

@@ -18,7 +18,7 @@ public class Post {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
     public Post() {

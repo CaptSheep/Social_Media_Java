@@ -3,16 +3,17 @@ package com.example.social_media.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "likes")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "users",nullable = false)
+    @JoinColumn(name = "userId",nullable = false)
     private User user;
     @ManyToOne
-    @JoinColumn(name = "posts",nullable = false)
+    @JoinColumn(name = "postId",nullable = false)
     private Post post;
 
     public Like() {
