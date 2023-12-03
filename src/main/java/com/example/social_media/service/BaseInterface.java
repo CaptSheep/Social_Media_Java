@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public interface BaseInterface<T> {
     void save(T t);
-    T findAll ();
+    Iterable<T> findAll ();
     Optional<T> findById(Long id);
-    void delete();
+    void delete(Long id);
 }
