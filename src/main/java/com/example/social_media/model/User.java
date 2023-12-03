@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 
-public class Users implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -51,14 +51,14 @@ public class Users implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
-    public Users(String username, String password, String confirmPassword, Set<Role> roles) {
+    public User(String username, String password, String confirmPassword, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.roles = roles;
     }
 
-    public Users(Long id, String username, Boolean status, String password, String confirmPassword, boolean enabled, String hobbies, Date dob, String education, String relationship, String city, String country, String address, String phoneNumber, Set<Role> roles) {
+    public User(Long id, String username, Boolean status, String password, String confirmPassword, boolean enabled, String hobbies, Date dob, String education, String relationship, String city, String country, String address, String phoneNumber, Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.status = status;
@@ -76,7 +76,7 @@ public class Users implements Serializable {
         this.roles = roles;
     }
 
-    public Users() {
+    public User() {
     }
 
     public static long getSerialVersionUID() {

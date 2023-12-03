@@ -3,21 +3,21 @@ package com.example.social_media.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Friends {
+public class Friend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "userSend",nullable = false)
-    private Users userSend;
+    private User userSend;
     @ManyToOne
     @JoinColumn(name = "userReceive",nullable = false)
-    private Users userReceive;
+    private User userReceive;
 
-    public Friends() {
+    public Friend() {
     }
 
-    public Friends(Long id, Users userSend, Users userReceive) {
+    public Friend(Long id, User userSend, User userReceive) {
         this.id = id;
         this.userSend = userSend;
         this.userReceive = userReceive;
@@ -31,19 +31,19 @@ public class Friends {
         return id;
     }
 
-    public Users getUserSend() {
+    public User getUserSend() {
         return userSend;
     }
 
-    public void setUserSend(Users userSend) {
+    public void setUserSend(User userSend) {
         this.userSend = userSend;
     }
 
-    public Users getUserReceive() {
+    public User getUserReceive() {
         return userReceive;
     }
 
-    public void setUserReceive(Users userReceive) {
+    public void setUserReceive(User userReceive) {
         this.userReceive = userReceive;
     }
 }

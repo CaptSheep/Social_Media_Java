@@ -1,7 +1,7 @@
 package com.example.social_media.service.impl;
 
 
-import com.example.social_media.model.Users;
+import com.example.social_media.model.User;
 import com.example.social_media.model.UserPrinciple;
 import com.example.social_media.repository.UserRepository;
 import com.example.social_media.service.UserService;
@@ -22,41 +22,41 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) {
-        Users users = userRepository.findByUsername(username);
-        if (users == null) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        if (this.checkLogin(users)) {
-            return UserPrinciple.build(users);
+        if (this.checkLogin(user)) {
+            return UserPrinciple.build(user);
         }
         boolean enable = false;
         boolean accountNonExpired = false;
         boolean credentialsNonExpired = false;
         boolean accountNonLocked = false;
-        return new org.springframework.security.core.userdetails.User(users.getUsername(),
-                users.getPassword(), enable, accountNonExpired, credentialsNonExpired,
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+                user.getPassword(), enable, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, null);
     }
 
 
     @Override
-    public void save(Users users) {
-        userRepository.save(users);
+    public void save(User user) {
+        userRepository.save(user);
     }
 
     @Override
-    public Iterable<Users> findAll() {
+    public Iterable<User> findAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public Users findByUsername(String username) {
+    public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     @Override
-    public Users getCurrentUser() {
-        Users users;
+    public User getCurrentUser() {
+        User user;
         String userName;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -64,18 +64,18 @@ public class UserServiceImpl implements UserService {
         } else {
             userName = principal.toString();
         }
-        users = this.findByUsername(userName);
-        return users;
+        user = this.findByUsername(userName);
+        return user;
     }
 
     @Override
-    public Optional<Users> findById(Long id) {
+    public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
     @Override
     public UserDetails loadUserById(Long id) {
-        Optional<Users> user = userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
             throw new NullPointerException();
         }
@@ -83,11 +83,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkLogin(Users user) {
-        Iterable<Users> users = this.findAll();
+    public boolean checkLogin(User user) {
+        Iterable<User> users = this.findAll();
         boolean isCorrectUser = false;
-        for (Users currentUsers : users) {
-            if (currentUsers.getUsername().equals(user.getUsername()) && user.getPassword().equals(currentUsers.getPassword()) && currentUsers.isEnabled()) {
+        for (User currentUser : users) {
+            if (currentUser.getUsername().equals(user.getUsername()) && user.getPassword().equals(currentUser.getPassword()) && currentUser.isEnabled()) {
                 isCorrectUser = true;
                 break;
             }
@@ -96,11 +96,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isRegister(Users user) {
+    public boolean isRegister(User user) {
         boolean isRegister = false;
-        Iterable<Users> users = this.findAll();
-        for (Users currentUsers : users) {
-            if (user.getUsername().equals(currentUsers.getUsername())) {
+        Iterable<User> users = this.findAll();
+        for (User currentUser : users) {
+            if (user.getUsername().equals(currentUser.getUsername())) {
                 isRegister = true;
                 break;
             }
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isCorrectConfirmPassword(Users users) {
-        return users.getPassword().equals(users.getConfirmPassword());
+    public boolean isCorrectConfirmPassword(User user) {
+        return user.getPassword().equals(user.getConfirmPassword());
     }
 }

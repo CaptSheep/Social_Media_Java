@@ -16,21 +16,21 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "users",nullable = false)
-    private Users users;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "posts" , nullable = false)
-    private Posts post;
+    private Post post;
 
     public Comment() {
     }
 
-    public Comment(Long id, String content, Date createAt, Users users, Posts post) {
+    public Comment(Long id, String content, Date createAt, User user, Post post) {
         this.id = id;
 
         this.content = content;
         this.createAt = createAt;
-        this.users = users;
+        this.user = user;
         this.post = post;
     }
 
@@ -59,19 +59,19 @@ public class Comment {
         this.createAt = createAt;
     }
 
-    public Users getUser() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser(Users users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Posts getPost() {
+    public Post getPost() {
         return post;
     }
 
-    public void setPost(Posts post) {
+    public void setPost(Post post) {
         this.post = post;
     }
 }

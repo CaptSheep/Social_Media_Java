@@ -1,28 +1,28 @@
 package com.example.social_media.service;
 
 
-import com.example.social_media.model.Users;
+import com.example.social_media.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    void save(Users users);
+    void save(User user);
 
-    Iterable<Users> findAll();
+    Iterable<User> findAll();
 
-    Users findByUsername(String username);
+    User findByUsername(String username);
 
-    Users getCurrentUser();
+    User getCurrentUser();
 
-    Optional<Users> findById(Long id);
+    Optional<User> findById(Long id);
 
     UserDetails loadUserById(Long id);
 
-    boolean checkLogin(Users users);
+    boolean checkLogin(User user);
 
-    boolean isRegister(Users users);
+    boolean isRegister(User user);
 
-    boolean isCorrectConfirmPassword(Users users);
+    boolean isCorrectConfirmPassword(User user);
 }

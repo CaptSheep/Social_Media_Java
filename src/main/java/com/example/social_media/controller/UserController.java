@@ -3,7 +3,7 @@ package com.example.social_media.controller;
 
 import com.example.social_media.model.JwtResponse;
 import com.example.social_media.model.Role;
-import com.example.social_media.model.Users;
+import com.example.social_media.model.User;
 import com.example.social_media.service.RoleService;
 import com.example.social_media.service.UserService;
 import com.example.social_media.service.impl.JwtService;
@@ -43,25 +43,25 @@ public class UserController {
 
 
     @GetMapping("/users")
-    public ResponseEntity<Iterable<Users>> showAllUser() {
-        Iterable<Users> users = userService.findAll();
+    public ResponseEntity<Iterable<User>> showAllUser() {
+        Iterable<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/admin/users")
-    public ResponseEntity<Iterable<Users>> showAllUserByAdmin() {
-        Iterable<Users> users = userService.findAll();
+    public ResponseEntity<Iterable<User>> showAllUserByAdmin() {
+        Iterable<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Users> createUser(@RequestBody Users user, BindingResult bindingResult) {
+    public ResponseEntity<User> createUser(@RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Iterable<Users> users = userService.findAll();
-        for (Users currentUsers : users) {
-            if (currentUsers.getUsername().equals(user.getUsername())) {
+        Iterable<User> users = userService.findAll();
+        for (User currentUser : users) {
+            if (currentUser.getUsername().equals(user.getUsername())) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
@@ -86,13 +86,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Users users) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(users.getUsername(), users.getPassword()));
+    public ResponseEntity<?> login(@RequestBody User user) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Users currentUsers = userService.findByUsername(users.getUsername());
-        return ResponseEntity.ok(new JwtResponse(jwt, currentUsers.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
+        User currentUser = userService.findByUsername(user.getUsername());
+        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
     @GetMapping("/hello")
@@ -101,25 +101,25 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<Users> getProfile(@PathVariable Long id) {
-        Optional<Users> userOptional = this.userService.findById(id);
+    public ResponseEntity<User> getProfile(@PathVariable Long id) {
+        Optional<User> userOptional = this.userService.findById(id);
         return userOptional.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<Users> updateUserProfile(@PathVariable Long id, @RequestBody Users users) {
-        Optional<Users> userOptional = this.userService.findById(id);
+    public ResponseEntity<User> updateUserProfile(@PathVariable Long id, @RequestBody User user) {
+        Optional<User> userOptional = this.userService.findById(id);
         if (!userOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        users.setId(userOptional.get().getId());
-        users.setUsername(userOptional.get().getUsername());
-        users.setEnabled(userOptional.get().isEnabled());
-        users.setPassword(userOptional.get().getPassword());
-        users.setRoles(userOptional.get().getRoles());
-        users.setConfirmPassword(userOptional.get().getConfirmPassword());
+        user.setId(userOptional.get().getId());
+        user.setUsername(userOptional.get().getUsername());
+        user.setEnabled(userOptional.get().isEnabled());
+        user.setPassword(userOptional.get().getPassword());
+        user.setRoles(userOptional.get().getRoles());
+        user.setConfirmPassword(userOptional.get().getConfirmPassword());
 
-        userService.save(users);
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

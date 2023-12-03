@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 
-public class Messages {
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,16 +14,16 @@ public class Messages {
     private String message;
     @ManyToOne
     @JoinColumn(name = "user", nullable = false)
-    private Users users;
+    private User user;
 
-    public Messages() {
+    public Message() {
     }
 
-    public Messages(Long id, Date createAt, String message, Users users) {
+    public Message(Long id, Date createAt, String message, User user) {
         this.id = id;
         this.createAt = createAt;
         this.message = message;
-        this.users = users;
+        this.user = user;
     }
 
     public void setId(Long id) {
@@ -51,12 +51,12 @@ public class Messages {
         this.message = message;
     }
 
-    public Users getUser() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser(Users users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

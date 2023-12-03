@@ -3,26 +3,24 @@ package com.example.social_media.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Like {
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String imageUrl;
     @ManyToOne
-    @JoinColumn(name = "users",nullable = false)
     private User user;
     @ManyToOne
-    @JoinColumn(name = "posts",nullable = false)
     private Post post;
 
-    public Like() {
+    public Image() {
     }
 
-    public Like(Long id, User user, Post post) {
+    public Image(Long id, String imageUrl, User user, Post post) {
         this.id = id;
+        this.imageUrl = imageUrl;
         this.user = user;
         this.post = post;
-
     }
 
     public void setId(Long id) {
@@ -33,21 +31,27 @@ public class Like {
         return id;
     }
 
-    public User getUsers() {
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public User getUser() {
         return user;
     }
 
-    public void setUsers(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public Post getPosts() {
+    public Post getPost() {
         return post;
     }
 
-    public void setPosts(Post post) {
+    public void setPost(Post post) {
         this.post = post;
     }
-
-
 }

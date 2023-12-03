@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 @Entity
-public class Posts {
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,17 +18,17 @@ public class Posts {
 
     @ManyToOne
     @JoinColumn(name = "user", nullable = false)
-    private Users users ;
+    private User user;
 
-    public Posts() {
+    public Post() {
     }
 
-    public Posts(Long id, String content, Date createAt, int totalLike, Users users) {
+    public Post(Long id, String content, Date createAt, int totalLike, User user) {
         this.id = id;
         this.content = content;
         this.createAt = createAt;
         this.totalLike = totalLike;
-        this.users = users;
+        this.user = user;
     }
 
     public void setId(Long id) {
@@ -63,11 +63,11 @@ public class Posts {
         this.totalLike = totalLike;
     }
 
-    public Users getUsers() {
-        return users;
+    public User getUsers() {
+        return user;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUsers(User user) {
+        this.user = user;
     }
 }
