@@ -14,13 +14,16 @@ public class Friend {
     @JoinColumn(name = "userReceive",nullable = false)
     private User userReceive;
 
+    private String status;
+
     public Friend() {
     }
 
-    public Friend(Long id, User userSend, User userReceive) {
+    public Friend(Long id, User userSend, User userReceive, String status) {
         this.id = id;
         this.userSend = userSend;
         this.userReceive = userReceive;
+        this.status = status;
     }
 
     public void setId(Long id) {
@@ -45,5 +48,13 @@ public class Friend {
 
     public void setUserReceive(User userReceive) {
         this.userReceive = userReceive;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

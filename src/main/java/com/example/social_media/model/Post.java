@@ -15,6 +15,7 @@ public class Post {
     @CreationTimestamp
     private Date createAt;
     private int totalLike;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "user", nullable = false)
@@ -23,11 +24,12 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long id, String content, Date createAt, int totalLike, User user) {
+    public Post(Long id, String content, Date createAt, int totalLike, String status, User user) {
         this.id = id;
         this.content = content;
         this.createAt = createAt;
         this.totalLike = totalLike;
+        this.status = status;
         this.user = user;
     }
 
@@ -68,6 +70,22 @@ public class Post {
     }
 
     public void setUsers(User user) {
+        this.user = user;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
         this.user = user;
     }
 }
