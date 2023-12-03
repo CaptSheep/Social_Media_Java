@@ -8,15 +8,19 @@ public class Friends {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "user",nullable = false)
-    private Users users;
+    @JoinColumn(name = "userSend",nullable = false)
+    private Users userSend;
+    @ManyToOne
+    @JoinColumn(name = "userReceive",nullable = false)
+    private Users userReceive;
 
     public Friends() {
     }
 
-    public Friends(Long id, Users users) {
+    public Friends(Long id, Users userSend, Users userReceive) {
         this.id = id;
-        this.users = users;
+        this.userSend = userSend;
+        this.userReceive = userReceive;
     }
 
     public void setId(Long id) {
@@ -27,12 +31,19 @@ public class Friends {
         return id;
     }
 
-
-    public Users getUser() {
-        return users;
+    public Users getUserSend() {
+        return userSend;
     }
 
-    public void setUser(Users users) {
-        this.users = users;
+    public void setUserSend(Users userSend) {
+        this.userSend = userSend;
+    }
+
+    public Users getUserReceive() {
+        return userReceive;
+    }
+
+    public void setUserReceive(Users userReceive) {
+        this.userReceive = userReceive;
     }
 }

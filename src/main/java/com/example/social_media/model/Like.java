@@ -15,17 +15,17 @@ public class Like {
     @JoinColumn(name = "posts",nullable = false)
     private Posts posts;
 
-    private int totalLike;
+
 
 
     public Like() {
     }
 
-    public Like(Long id, Users users, Posts posts, int totalLike) {
+    public Like(Long id, Users users, Posts posts) {
         this.id = id;
         this.users = users;
         this.posts = posts;
-        this.totalLike = totalLike;
+
     }
 
     public void setId(Long id) {
@@ -52,11 +52,5 @@ public class Like {
         this.posts = posts;
     }
 
-    public int getTotalLike() {
-        return totalLike;
-    }
 
-    public void setTotalLike(int totalLike) {
-        this.totalLike = totalLike;
-    }
 }
